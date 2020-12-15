@@ -19,6 +19,10 @@ sim_confusion <- function(n, pd, se, sp) {
 
 
 lr_pos <- function(df,i){
+    # relative comparison of two LR positives
+    # df: data frame with the the Test result and Truth for two tests in wide
+    #     format
+    # i: indicies for selecting subsamples in the boot function
     tab.pre <- prop.table(table(df$TestPre[i],df$TruthPre[i]),margin = 2)
     sens.pre <- tab.pre[1,1]
     spec.pre <- tab.pre[2,2]
@@ -34,6 +38,8 @@ lr_pos <- function(df,i){
 
 
 lr_test_power <- function(){
+    # simulate the data, bootstrap the CI for the relative difference
+    # output is the lower bound of the CI
     simpre <- sim_confusion(n=200, pd=0.55, se=0.74, sp=0.65)
     simpost <- sim_confusion(n=200, pd=0.55, se=0.85, sp=0.80)
 
